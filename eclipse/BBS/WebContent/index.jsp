@@ -8,7 +8,7 @@
 </head>
 <body>
 	<script>
-		location.href = 'login.jsp'; /* login.jsp 파일이 없기 때문에 404에러가 뜬다. */
+		location.href = 'login.jsp'; /* login.jsp 파일이 없기 때문에 404에러가 뜬다 */
 	</script>
 </body>
 </html>
