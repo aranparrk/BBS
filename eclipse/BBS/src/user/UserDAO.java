@@ -39,4 +39,20 @@ public class UserDAO {
 		}
 		return -2; // 데이터베이스 오류를 의미한다
 	} // 이런 함수를 실제로 사용해서 사용자에게 로그인 결과를 알려주는 페이지 loginAction.jsp이다
+	
+	public int join(User user) {
+		String SQL = "INSERT INTO user1 VALUES (?, ?, ?, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, user.getUserID());
+			pstmt.setString(2, user.getUserPassword());
+			pstmt.setString(3, user.getUserName());
+			pstmt.setString(4, user.getUserGender());
+			pstmt.setString(5, user.getUserEmail());
+			return pstmt.executeUpdate(); //해당 스테이트먼트를 실행한 결과를 넣을 수 있도록 한다. 인설트문장을 실행한 경우는 반드시 0이상의 결과를 반환하기 때문에 -1이 아닌 경우는 성공적으로 회원가입이 이루어진 것을 알 수 있다.
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // 데이터베이스 오류
+	}
 }
