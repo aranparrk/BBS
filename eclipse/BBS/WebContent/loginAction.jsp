@@ -14,9 +14,21 @@
 </head>
 <body>
 	<%
+		String userID = null;
+		if(session.getAttribute("userID") != null){ //세션이 존재하는 회원들은
+			 userID = (String)session.getAttribute("userID"); //userID에 해당 세션값을 넣어줄 수 있게 해준다
+		}
+		if(userID != null){
+			PrintWriter script = response.getWriter(); 
+			script.println("<script>"); 
+			script.println("alert('이미 로그인이 되어있습니다.');");
+			script.println("location.href='main.jsp';"); // 이전 페이지로 사용자를 돌려보낸다
+			script.println("</script>"); 
+		}
 		UserDAO userDAO = new UserDAO(); // 하나의 인스턴스 생성, 로그인 성공
 		int result = userDAO.login(user.getUserID(), user.getUserPassword()); // 로그인을 할 수 있게 해준다, 로그인페이지에서 유저아이디와 유저패스워드가 각각 입력이 된 값으로 넘어와서 로그인 함수에 넣어줘서 로그인을 실행해준다 각각의 값들이 리설트에 담기게 될 것이다
 		if(result == 1){ 
+			session.setAttribute("userID", user.getUserID()); // 세션값 부여하기
 			PrintWriter script = response.getWriter(); // 하나의 스크립트 문장을 넣어줄 수 있게 한다 
 			script.println("<script>"); // 스크립트문장을 유동적으로 실행할 수있게 해준다 
 			script.println("location.href='main.jsp'"); // 링크를 넣어서 main으로 이동할 수 있게 해준다. 로그인 성공시에 이 페이지로 이동하게 된다 

@@ -17,6 +17,17 @@
 </head>
 <body>
 	<%
+		String userID = null;
+		if(session.getAttribute("userID") != null){ //세션이 존재하는 회원들은
+			 userID = (String)session.getAttribute("userID"); //userID에 해당 세션값을 넣어줄 수 있게 해준다
+		}
+		if(userID != null){
+			PrintWriter script = response.getWriter(); 
+			script.println("<script>"); 
+			script.println("alert('이미 로그인이 되어있습니다.');");
+			script.println("location.href='main.jsp';"); // 이전 페이지로 사용자를 돌려보낸다
+			script.println("</script>"); 
+		}
 		if(user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null || user.getUserGender() == null || user.getUserEmail() ==null){
 			PrintWriter script = response.getWriter(); 
 			script.println("<script>"); 
@@ -33,6 +44,7 @@
 				script.println("history.back();"); // 이전 페이지로 사용자를 돌려보낸다
 				script.println("</script>"); 
 			}else{ // 회원가입 성공
+				session.setAttribute("userID", user.getUserID());
 				PrintWriter script = response.getWriter(); 
 				script.println("<script>"); 
 				script.println("location.href='main.jsp'"); // 회원가입이 되었을 땐 로그인할 수 있게 해준다
