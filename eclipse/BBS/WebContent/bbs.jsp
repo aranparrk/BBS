@@ -98,7 +98,7 @@
 				%>
 					<tr>
 						<td><%= list.get(i).getBbsID() %></td> <!-- 현재 게시글의 정보를 가져오면 된다 -->
-						<td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle() %></a></td> <!-- 제목을 눌렀을 때는 해당 게시글의 내용을 보여주는 페이지로 넘어가야 하므로 해당 jsp로 해당 게시글 번호를 매개변수로 보냄으로서 처리하게 해준다 즉 해당 게시글 번호에 맞는 게시물을 나중에 뷰페이지에서 보여주기 위함이다-->
+						<td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle().replaceAll(" ","&nbsp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\n", "<br>") %></a></td> <!-- 제목을 눌렀을 때는 해당 게시글의 내용을 보여주는 페이지로 넘어가야 하므로 해당 jsp로 해당 게시글 번호를 매개변수로 보냄으로서 처리하게 해준다 즉 해당 게시글 번호에 맞는 게시물을 나중에 뷰페이지에서 보여주기 위함이다-->
 						<td><%= list.get(i).getUserID() %></td> <!-- 현재 게시글의 정보를 가져오면 된다 -->
 						<td><%= list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시" + list.get(i).getBbsDate().substring(14, 16) + "분" %></td> <!-- 현재 게시글의 정보를 가져오면 된다 -->
 					</tr>

@@ -104,4 +104,26 @@ public class BbsDAO {
 		}
 		return false;
 	}
+	
+	public Bbs getBbs(int bbsID) {//특정한 아이디에 해당하는 게시글을 그대로 가져올 수 있게 한다
+		String SQL = "SELECT * FROM BBS WHERE bbsID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL); // 현재 연결되어 있는 객체를 이용해서 SQL문장을 실행준비 상태로 만들어준다
+			pstmt.setInt(1, bbsID); // bbsID가 어떠한 값을 넣어서 그 숫자에 해당하는 게시글을 그대로 가져오는 것
+			rs = pstmt.executeQuery(); // 실제 실행했을 때 나오는 결과를 가져온다
+			if(rs.next()) { // 결과가 나왔다면
+				Bbs bbs = new Bbs(); // 이 객체가 나오게 한다				
+				bbs.setBbsID(rs.getInt(1)); //bbs에 담긴 모든 속성을 다 띄우기 때문에 각각 다 넣어주면 간단하게 작동한다
+				bbs.setBbsTitle(rs.getString(2)); 
+				bbs.setUserID(rs.getString(3)); 
+				bbs.setBbsDate(rs.getString(4));
+				bbs.setBbsContent(rs.getString(5));
+				bbs.setBbsAvailable(rs.getInt(6));
+				return bbs; // 이 함수를 불러낸 대상한테 불러내준다
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
