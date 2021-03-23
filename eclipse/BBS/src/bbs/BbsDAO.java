@@ -126,4 +126,30 @@ public class BbsDAO {
 		}
 		return null;
 	}
+	
+	public int update(int bbsID, String bbsTitle, String bbsContent) { // 특정한 번호에 매개변수로 들어온 제목과 내용으로 바꿔치기 하겠다는내용, write와 비슷한 특성을 갖고 있다
+		String SQL = "UPDATE BBS SET bbsTitle =?, bbsContent =? WHERE bbsID = ?"; // 특정한 아아디에 해당하는 제목과 내용을 바꾸겠다 
+		try {	
+			PreparedStatement pstmt = conn.prepareStatement(SQL); // 현재 연결되어 있는 객체를 이용해서 SQL문장을 실행준비 상태로 만들어준다
+			pstmt.setString(1, bbsTitle); // 하나씩 값을 넣어주도록 한다, 즉 다음번에 쓰여야할 게시글 번호가 되야 한다
+			pstmt.setString(2, bbsContent);
+			pstmt.setInt(3, bbsID);
+			return pstmt.executeUpdate(); // 성공했을 때면 0이상의 결과를 반환, 그렇지 않은 경우엔 오류가 발생했을 땐 -1 66행이 리턴된다
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //데이터베이스 오류
+	}
+	
+	public int delete(int bbsID) {
+		String SQL = "UPDATE BBS SET bbsAvailable = 0 WHERE bbsID = ?"; // 특정한 아아디에 해당하는 제목과 내용을 바꾸겠다 
+		try {	
+			PreparedStatement pstmt = conn.prepareStatement(SQL); // 현재 연결되어 있는 객체를 이용해서 SQL문장을 실행준비 상태로 만들어준다
+			pstmt.setInt(1, bbsID); // 하나씩 값을 넣어주도록 한다, 즉 다음번에 쓰여야할 게시글 번호가 되야 한다
+			return pstmt.executeUpdate(); // 성공했을 때면 0이상의 결과를 반환, 그렇지 않은 경우엔 오류가 발생했을 땐 -1 66행이 리턴된다
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //데이터베이스 오류
+	}
 }

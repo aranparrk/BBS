@@ -111,7 +111,7 @@
 				if(userID != null && userID.equals(bbs.getUserID())){ /* 현재 들어온 글의 작성자가 본인이라면 해당글을 수정할 수있게 만들어줘야한다 */
 			%>
 					<a href="update.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">수정</a> <!-- 해당bbsID를 가져갈 수 있게 해서 매개변수로서 가져갈 수 있도록 만들어준다 -->
-					<a href="deleteAction.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">삭제</a> <!-- 바로 삭제를 진행버리는 action페이지로 이동하기 때문에 -->
+					<a onclick= "return confirm('정말 삭제하시겠습니까?')" href="deleteAction.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">삭제</a> <!-- 바로 삭제를 진행버리는 action페이지로 이동하기 때문에 -->
 			<%
 				}
 			%>
